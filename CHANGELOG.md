@@ -1,7 +1,8 @@
 # Changelog
 
-All notable changes to `black-scholes` will be documented in this file.
+All notable changes to `options-calculator` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## 1.0.0 - 2021-08-13
 
-- initial release
+- Calculate option prices and greeks using Black'76 formula.
+- Derive implied volatilities using Black'76 formula and bisection method.

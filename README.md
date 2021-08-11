@@ -1,26 +1,56 @@
-# Black-Scholes
+# Option Valuation Calculator
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/kyosenergy/black-scholes.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/black-scholes)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/kyosenergy/black-scholes/run-tests?label=tests)](https://github.com/kyosenergy/black-scholes/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/kyosenergy/black-scholes/Check%20&%20fix%20styling?label=code%20style)](https://github.com/kyosenergy/black-scholes/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/kyosenergy/black-scholes.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/black-scholes)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/kyosenergy/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/options-calculator)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/kyosenergy/options-calculator/run-tests?label=tests)](https://github.com/kyosenergy/options-calculator/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/kyosenergy/options-calculator/Check%20&%20fix%20styling?label=code%20style)](https://github.com/kyosenergy/options-calculator/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/kyosenergy/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/options-calculator)
 
-An option price/volatility calculator using the Black-Scholes formula.
+**A collection of methods to calculate option prices, greeks & implied volatilities.**
+
+Range of supported products:
+- European options on futures, using the Black'76 methodology. 
+ 
+Range of supported methodologies to derive implied volatilities:
+- Bisection search algorithm.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require kyos/black-scholes
+composer require kyos/options-calculator
 ```
 
 ## Usage
 
 ```php
-$bs = new Kyos\BlackScholes(60, 65, 0.25, 8, 30);
-echo $bs->valueCall(); // 60.0
-echo $bs->valuePut(); // 8.796793410
+use Kyos\OptionsCalculator\Black76;
+
+$bs = new Black76();
+echo $bs->getValues(Black76::CALL, 10.5, 12, 0.082, 0.60);
+// [
+//     'value' => 0.2405826183655344,
+//     'delta' => 0.24449431791580983,
+//     'gamma' => 0.17399585222314845,
+//     'vega' => 0.009438057012140243,
+//     'theta' => -3.450541861184725,
+//     'rho' => -0.00019727774705973822,
+// ]
+
+echo $bs->getValues(Black76::PUT, 10.5, 12, 0.082, 0.60);
+// [
+//     'value' => 1.7393531225277215,
+//     'delta' => -0.7546860181923143,
+//     'gamma' => 0.17399585222314845,
+//     'vega' => 0.009438057012140243,
+//     'theta' => -3.435554156143103,
+//     'rho' => -0.0014262695604727318,
+// ]
+
+echo $bs->getImpliedVolatility(Black76::CALL, 10.5, 12, 0.082, 0.2405826183655344);
+// 0.60
+echo $bs->getImpliedVolatility(Black76::PUT, 10.5, 12, 0.082, 1.7393531225277215);
+// 0.60
 ```
 
 ## Testing

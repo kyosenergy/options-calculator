@@ -1,17 +1,23 @@
 {
-    "name": "kyos/black-scholes",
-    "description": "An option price/volatility calculator using the Black-Scholes formula",
+    "name": "kyos/options-calculator",
+    "description": "A collection of methods to calculate option prices, greeks & implied volatilities",
     "keywords": [
         "options",
+        "black-76",
         "black-scholes"
     ],
-    "homepage": "https://github.com/kyosenergy/black-scholes",
+    "homepage": "https://github.com/kyosenergy/options-calculator",
     "license": "MIT",
     "authors": [
         {
             "name": "Zois Pagoulatos",
             "email": "zpagoulatos@hotmail.com",
             "role": "Developer"
+        },
+        {
+            "name": "Emilian Enev",
+            "email": "enev@kyos.com",
+            "role": "Quantitative Developer"
         }
     ],
     "require": {
@@ -25,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Kyos\\BlackScholes\\": "src"
+            "Kyos\\OptionsCalculator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Kyos\\BlackScholes\\Tests\\": "tests"
+            "Kyos\\OptionsCalculator\\Tests\\": "tests"
         }
     },
     "scripts": {

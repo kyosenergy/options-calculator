@@ -1,9 +1,9 @@
 # Option Valuation Calculator
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/kyosenergy/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/options-calculator)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/kyosenergy/options-calculator/run-tests?label=tests)](https://github.com/kyosenergy/options-calculator/actions?query=workflow%3ATests+branch%3Amaster)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/kyos/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyos/options-calculator)
+[![GitHub Tests Action Status](https://github.com/kyosenergy/options-calculator/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kyosenergy/options-calculator/actions/workflows/run-tests.yml)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/kyosenergy/options-calculator/Check%20&%20fix%20styling?label=code%20style)](https://github.com/kyosenergy/options-calculator/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/kyosenergy/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyosenergy/options-calculator)
+[![Total Downloads](https://img.shields.io/packagist/dt/kyos/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyos/options-calculator)
 
 **A collection of methods to calculate option prices, greeks & implied volatilities.**
 

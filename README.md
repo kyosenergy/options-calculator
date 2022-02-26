@@ -1,3 +1,5 @@
+![banner](.github/banner.png)
+
 # Option Valuation Calculator
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kyos/options-calculator.svg?style=flat-square)](https://packagist.org/packages/kyos/options-calculator)

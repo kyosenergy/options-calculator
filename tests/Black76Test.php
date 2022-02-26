@@ -27,11 +27,11 @@ it('calculates greeks for PUT options', function () {
 
 // Implied volatilities
 it('calculates implied volatility for CALL options when we know the value', function () {
-    $this->expect((new Black76())->getImpliedVolatility(Black76::CALL, 10.5, 12, 30 / 365.25, 0.24105017253515562))->toBe(0.60);
+    $this->expect((new Black76())->getImpliedVolatility(Black76::CALL, 10.5, 12, 30 / 365.25, 0.24105017253515562))->toEqualWithDelta(0.60, 0.00000000000001);
 });
 
 it('calculates implied volatility for PUT options when we know the value', function () {
-    $this->expect((new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 1.7398186455107651))->toBe(0.60);
+    $this->expect((new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 1.7398186455107651))->toEqualWithDelta(0.60, 0.00000000000001);
 });
 
 // Expections

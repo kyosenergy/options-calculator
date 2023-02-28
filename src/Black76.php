@@ -118,7 +118,7 @@ class Black76
             $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
             $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
 
-            $volGuess = $volMin + ($marketPrice - $valueMin) * ($volMax - $volMin) / ($valueMax - $valueMin);
+            $volGuess = $volMin + ($marketPrice - $valueMin) * ($volMax - $volMin) / max($valueMax - $valueMin, $volMin);
             $valueGuess = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volGuess)['value'];
 
             if ($valueGuess < $marketPrice) {

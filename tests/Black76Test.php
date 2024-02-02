@@ -34,9 +34,13 @@ it('calculates implied volatility for PUT options when we know the value', funct
     $this->expect((new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 1.7398186455107651))->toEqualWithDelta(0.60, 0.00000000000001);
 });
 
-it('throws exception if implied volatility is outside the initial range', function () {
-    (new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 1);
-})->throws(RuntimeException::class);
+it('returns an implied volatility of 0.00001 when the true value is below this lower bound', function () {
+    $this->expect((new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 1))->toEqualWithDelta(0.00001, 0.00000000000001);
+});
+
+it('returns an implied volatility of 5 when the true value is above this upper bound', function () {
+    $this->expect((new Black76())->getImpliedVolatility(Black76::PUT, 10.5, 12, 30 / 365.25, 10))->toEqualWithDelta(5, 0.00000000000001);
+});
 
 // Exceptions
 it('throws exception if we try to derive implied volatility using newton rapshon', function () {

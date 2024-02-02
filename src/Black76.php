@@ -124,7 +124,7 @@ class Black76
         while (++$i < $maxIterations && ($volMax - $volMin > $epsilon || $valueMin != $valueMax)) {
             $volBisection = $volMin + ($volMax - $volMin) * ($marketPrice - $valueMin) / ($valueMax - $valueMin);
 
-            // If the true implied volatility is outside of the interval [0.00001;5], the condition below ensures that it will be set to the closest bound
+            // If the true implied volatility is outside the interval [0.00001;5], the condition below ensures that it will be set to the closest bound
             $volGuess = max($volMin, min($volBisection, $volMax));
             $valueGuess = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volGuess)['value'];
 

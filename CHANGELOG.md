@@ -2,6 +2,10 @@
 
 All notable changes to `options-calculator` will be documented in this file.
 
+## 1.0.2 - 2024-02-02
+
+- Enforce upper and lower bounds for implied volatility.
+
 ## 1.0.1 - 2024-02-02
 
 - Fix calculation when implied volatility is outside the initial range.

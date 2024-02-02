@@ -121,15 +121,14 @@ class Black76
         $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
         $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
 
-        if ($marketPrice < $valueMin || $marketPrice > $valueMax) {
-            throw new RuntimeException("Implied volatility could not be found in the range {$volMin} - {$volMax}.");
-        }
-
         while (++$i < $maxIterations && ($volMax - $volMin > $epsilon || $valueMin != $valueMax)) {
             $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
             $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
 
-            $volGuess = $volMin + ($marketPrice - $valueMin) * ($volMax - $volMin) / ($valueMax - $valueMin);
+            $volBisection = $volMin + ($volMax - $volMin) * ($marketPrice - $valueMin) / ($valueMax - $valueMin);
+
+            // If the true implied volatility is outside of the interval [0.00001;5], the condition below ensures that it will be set to the closest bound
+            $volGuess = max($volMin, min($volBisection, $volMax))
             $valueGuess = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volGuess)['value'];
 
             if ($valueGuess < $marketPrice) {

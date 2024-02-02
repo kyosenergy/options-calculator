@@ -3,6 +3,7 @@
 namespace Kyos\OptionsCalculator;
 
 use Exception;
+use RuntimeException;
 
 class Black76
 {
@@ -15,7 +16,7 @@ class Black76
     private float $interestRate;
 
     /**
-     * @param float $interestRate Annual risk-free nterest rate, defaults to 0.01 (1%)
+     * @param float $interestRate Annual risk-free interest rate, defaults to 0.01 (1%)
      */
     public function __construct(float $interestRate = 0.01)
     {
@@ -99,6 +100,8 @@ class Black76
      * @param float  $marketPrice     Option price
      *
      * @return float
+     *
+     * @throws RuntimeException
      */
     private function impliedVolaUsingBisection(
         string $type,
@@ -113,12 +116,20 @@ class Black76
 
         $volMin = 0.00001;
         $volMax = 5;
+        $volGuess = $volMin;
 
-        do {
+        $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
+        $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
+
+        if ($marketPrice < $valueMin || $marketPrice > $valueMax) {
+            throw new RuntimeException("Implied volatility could not be found in the range {$volMin} - {$volMax}.");
+        }
+
+        while (++$i < $maxIterations && ($volMax - $volMin > $epsilon || $valueMin != $valueMax)) {
             $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
             $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
 
-            $volGuess = $volMin + ($marketPrice - $valueMin) * ($volMax - $volMin) / max($valueMax - $valueMin, $volMin);
+            $volGuess = $volMin + ($marketPrice - $valueMin) * ($volMax - $volMin) / ($valueMax - $valueMin);
             $valueGuess = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volGuess)['value'];
 
             if ($valueGuess < $marketPrice) {
@@ -126,7 +137,7 @@ class Black76
             } else {
                 $volMax = $volGuess;
             }
-        } while (++$i <= $maxIterations && $volMax - $volMin > $epsilon);
+        }
 
         return $volGuess;
     }

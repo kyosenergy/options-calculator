@@ -122,9 +122,6 @@ class Black76
         $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
 
         while (++$i < $maxIterations && ($volMax - $volMin > $epsilon || $valueMin != $valueMax)) {
-            $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
-            $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
-
             $volBisection = $volMin + ($volMax - $volMin) * ($marketPrice - $valueMin) / ($valueMax - $valueMin);
 
             // If the true implied volatility is outside of the interval [0.00001;5], the condition below ensures that it will be set to the closest bound
@@ -136,6 +133,9 @@ class Black76
             } else {
                 $volMax = $volGuess;
             }
+
+            $valueMin = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMin)['value'];
+            $valueMax = $this->getValues($type, $underlyingPrice, $strikePrice, $timeToMaturity, $volMax)['value'];
         }
 
         return $volGuess;

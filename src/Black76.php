@@ -3,7 +3,6 @@
 namespace Kyos\OptionsCalculator;
 
 use Exception;
-use RuntimeException;
 
 class Black76
 {
@@ -100,8 +99,6 @@ class Black76
      * @param float  $marketPrice     Option price
      *
      * @return float
-     *
-     * @throws RuntimeException
      */
     private function impliedVolaUsingBisection(
         string $type,
